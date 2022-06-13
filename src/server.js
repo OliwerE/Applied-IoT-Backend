@@ -1,6 +1,5 @@
 /**
  * Express configuration module.
- *
  */
 
 import express from 'express'
@@ -8,11 +7,12 @@ import helmet from 'helmet'
 import logger from 'morgan'
 import cors from 'cors'
 import csurf from 'csurf'
+import { connectMongoDB } from './config/mongoose.js'
 
 /**
  * Main function for express server.
  */
-function expressServer () {
+async function expressServer () {
   const app = express()
 
   // Express configuration
@@ -24,7 +24,7 @@ function expressServer () {
   // app.use(csurf({})) // Add in prod
 
   // Connect to MongoDB
-  // Do something...
+  await connectMongoDB(app)
 
   // Handle csurf errors.
   app.use((err, req, res, next) => {
