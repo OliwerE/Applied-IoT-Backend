@@ -6,7 +6,27 @@
  * Class represents auth controller.
  */
 export class AuthController {
-  helloWorld (req, res, next) {
-    res.json({ msg: 'hello from authController!' })
+  getIndex (req, res, next) {
+
+  }
+
+  getCsrfToken (req, res, next) {
+
+  }
+
+  isAuth (req, res, next) {
+
+  }
+
+  loginUser (req, res, next) {
+
+  }
+
+  logoutUser (req, res, next) {
+
+  }
+
+  registerUser (req, res, next) {
+
   }
 }
