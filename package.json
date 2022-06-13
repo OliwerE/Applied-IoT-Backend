@@ -1,0 +1,46 @@
+{
+  "name": "applied-iot-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/server.js",
+    "start:dev": "nodemon --inspect -r dotenv/config src/server.js",
+    "lint": "npx eslint ./src || exit 0",
+    "lint:fix": "npx eslint ./src --fix || exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OliwerE/Applied-IoT-Backend.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/OliwerE/Applied-IoT-Backend/issues"
+  },
+  "homepage": "https://github.com/OliwerE/Applied-IoT-Backend#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "csurf": "^1.11.0",
+    "express": "^4.18.1",
+    "helmet": "^5.1.0",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "@lnu/eslint-config": "^1.1.5",
+    "dotenv": "^16.0.1",
+    "eslint": "^8.17.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jsdoc": "^39.3.2",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^6.0.0",
+    "nodemon": "^2.0.16"
+  },
+  "eslintConfig": {
+    "extends": "@lnu"
+  },
+  "nodemonConfig": {
+    "ext": "js,json,hbs,html,css"
+  }
+}
