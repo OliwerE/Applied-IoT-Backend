@@ -11,7 +11,7 @@ export const router = express.Router()
 const authController = new AuthController()
 
 router.get('/', authController.getIndex)
-router.get('/csrf', authController.getCsrfToken)
+router.get('/csrf-token', authController.getCsrfToken)
 router.get('/is-auth', authController.isAuth)
 
 router.post('/login', authController.loginUser)
