@@ -9,6 +9,8 @@ import cors from 'cors'
 import csurf from 'csurf'
 import { connectMongoDB } from './config/mongoose.js'
 
+import { router } from './routes/router.js'
+
 /**
  * Main function for express server.
  */
@@ -32,8 +34,7 @@ async function expressServer () {
     res.status(403).json({ msg: 'Invalid csrf token' })
   })
 
-  // app.use('/', router)
-  app.use('/', (req, res, next) => res.json({ msg: 'Hello World!' }))
+  app.use('/', router)
 
   // Errors
   app.use((err, req, res, next) => {
