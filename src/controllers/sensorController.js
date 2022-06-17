@@ -33,7 +33,7 @@ export class SensorControler {
         sensors.push(sensor)
       }
 
-      res.json({ msg: 'All sensors latest value.', sensors })
+      res.json({ msg: 'Latest value of all sensors.', sensors })
     } catch (err) {
       next(createError(500))
     }
