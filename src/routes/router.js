@@ -8,7 +8,7 @@ import { router as sensorRouter } from './sensorRouter.js'
 
 export const router = express.Router()
 
-router.get('/', (req, res, next) => { // ToDo add all links!!
+router.get('/', (req, res, next) => {
   try {
     res.json({
       msg: 'IoT dashboard API',

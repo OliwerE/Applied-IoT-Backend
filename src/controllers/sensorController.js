@@ -10,6 +10,36 @@ import { SensorReport } from '../models/sensorReport.js'
  */
 export class SensorControler {
   /**
+   * Returns name and current value of all sensors stored in DB.
+   *
+   * @param {object} req - Request object.
+   * @param {object} res - Response object.
+   * @param {object} next - Next function.
+   */
+  async getAllSensors (req, res, next) {
+    try {
+      const sensorNames = await SensorReport.find().distinct('sensorName')
+
+      const sensors = []
+
+      for (let i = 0; i < sensorNames.length; i++) {
+        const latestSensorValue = await SensorReport.findOne({ sensorName: sensorNames[i] }).sort({ createdAt: -1 })
+
+        const sensor = {
+          sensorName: sensorNames[i],
+          value: latestSensorValue.value,
+          createdAt: latestSensorValue.createdAt
+        }
+        sensors.push(sensor)
+      }
+
+      res.json({ msg: 'All sensors latest value.', sensors })
+    } catch (err) {
+      next(createError(500))
+    }
+  }
+
+  /**
    * Creates sensor reports for an array of sensor objects.
    *
    * @param {object} req - Request object.
