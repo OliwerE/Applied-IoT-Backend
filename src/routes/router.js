@@ -4,6 +4,7 @@
 
 import express from 'express'
 import createError from 'http-errors'
+import { router as sensorRouter } from './sensorRouter.js'
 
 export const router = express.Router()
 
@@ -16,8 +17,8 @@ router.get('/', (req, res, next) => { // ToDo add all links!!
           href: process.env.BASE_URL,
           requestTypes: ['GET']
         },
-        auth: {
-          href: (process.env.BASE_URL + '/auth'),
+        sensors: {
+          href: (process.env.BASE_URL + '/sensors'),
           requestTypes: ['GET']
         }
       }
@@ -27,9 +28,6 @@ router.get('/', (req, res, next) => { // ToDo add all links!!
   }
 })
 
-router.post('/test', (req, res, next) => {
-  console.log(req.body)
-  res.json({ msg: 'success' })
-})
+router.use('/sensors', sensorRouter)
 
 router.use('*', (req, res, next) => next(createError(404)))
