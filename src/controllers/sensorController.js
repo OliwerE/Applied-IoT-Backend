@@ -40,6 +40,31 @@ export class SensorControler {
   }
 
   /**
+   * Returns latest value of a specific sensor.
+   *
+   * @param {object} req - Request object.
+   * @param {object} res - Response object.
+   * @param {object} next - Next function.
+   */
+  async getSensor (req, res, next) {
+    try {
+      const sensorName = req.params.name
+      const latestSensorValue = await SensorReport.findOne({ sensorName }).sort({ createdAt: -1 })
+      console.log(latestSensorValue)
+
+      const sensor = {
+        sensorName,
+        value: latestSensorValue.value,
+        createdAt: latestSensorValue.createdAt
+      }
+
+      res.json({ msg: `Latest value from sensor: ${sensorName}`, sensor })
+    } catch (err) {
+      next(createError(404))
+    }
+  }
+
+  /**
    * Creates sensor reports for an array of sensor objects.
    *
    * @param {object} req - Request object.
