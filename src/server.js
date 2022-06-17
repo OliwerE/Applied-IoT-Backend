@@ -6,7 +6,6 @@ import express from 'express'
 import helmet from 'helmet'
 import logger from 'morgan'
 import cors from 'cors'
-import csurf from 'csurf'
 import { connectMongoDB } from './config/mongoose.js'
 
 import { router } from './routes/router.js'
@@ -23,7 +22,6 @@ async function expressServer () {
   app.use(cors({ origin: process.env.ORIGIN, credentials: true }))
   app.use(logger('dev'))
   app.use(express.json())
-  // app.use(csurf({})) // Add in prod
 
   // Connect to MongoDB
   await connectMongoDB(app)
