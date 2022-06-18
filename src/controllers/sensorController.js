@@ -60,7 +60,7 @@ export class SensorControler {
 
       res.json({ msg: `Latest value from sensor: ${sensorName}`, sensor })
     } catch (err) {
-      next(createError(404)) // change to 500
+      next(createError(404))
     }
   }
 
@@ -74,7 +74,6 @@ export class SensorControler {
   async updateSensors (req, res, next) {
     try {
       const sensors = req.body
-      console.log(sensors)
 
       for (let i = 0; i < sensors.length; i++) {
         const sensor = sensors[i]
