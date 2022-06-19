@@ -11,7 +11,7 @@ export const router = express.Router()
 router.get('/', (req, res, next) => {
   try {
     res.json({
-      msg: 'IoT dashboard API (controller back in controllers folder)',
+      msg: 'IoT dashboard API',
       links: {
         self: {
           href: process.env.BASE_URL,
