@@ -26,7 +26,7 @@ async function expressServer () {
   app.use(express.json())
 
   // Connect to MongoDB
-  // await connectMongoDB(app)
+  await connectMongoDB(app)
 
   // Handle csurf errors.
   app.use((err, req, res, next) => {
