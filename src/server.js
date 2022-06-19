@@ -19,6 +19,8 @@ async function expressServer () {
   // Express configuration
   app.use(helmet())
   app.set('trust proxy', 1)
+
+  const origin = process.env.ORIGIN || 'http://localhost:5001' // remove
   app.use(cors({ origin: process.env.ORIGIN, credentials: true }))
   app.use(logger('dev'))
   app.use(express.json())
@@ -45,8 +47,9 @@ async function expressServer () {
     }
   })
 
-  app.listen(process.env.PORT, () => {
-    console.log(`Listens for localhost@${process.env.PORT}`)
+  const port = process.env.PORT || 5001 // remove
+  app.listen(port, () => {
+    console.log(`Listens for localhost@${port}`)
     console.log('ctrl + c to terminate')
   })
 }

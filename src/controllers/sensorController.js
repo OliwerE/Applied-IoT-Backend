@@ -74,6 +74,7 @@ export class SensorControler {
   async updateSensors (req, res, next) {
     try {
       const sensors = req.body
+      console.log(sensors)
 
       for (let i = 0; i < sensors.length; i++) {
         const sensor = sensors[i]
