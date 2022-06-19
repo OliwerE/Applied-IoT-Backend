@@ -21,12 +21,12 @@ async function expressServer () {
   app.set('trust proxy', 1)
 
   const origin = process.env.ORIGIN || 'http://localhost:5001' // remove
-  app.use(cors({ origin: process.env.ORIGIN, credentials: true }))
+  app.use(cors({ origin: origin, credentials: true }))
   app.use(logger('dev'))
   app.use(express.json())
 
   // Connect to MongoDB
-  await connectMongoDB(app)
+  // await connectMongoDB(app)
 
   // Handle csurf errors.
   app.use((err, req, res, next) => {
