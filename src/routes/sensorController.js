@@ -3,7 +3,7 @@
  */
 
 import createError from 'http-errors'
-import { SensorReport } from '../models/sensorReport.js'
+// import { SensorReport } from '../models/sensorReport.js'
 
 /**
  * Sensor controller class.
@@ -16,6 +16,7 @@ export class SensorController {
    * @param {object} res - Response object.
    * @param {object} next - Next function.
    */
+  /*
   async getAllSensors (req, res, next) {
     try {
       const sensorNames = await SensorReport.find().distinct('sensorName')
@@ -38,6 +39,7 @@ export class SensorController {
       next(createError(500))
     }
   }
+  */
 
   /**
    * Returns latest value of a specific sensor.
@@ -46,6 +48,7 @@ export class SensorController {
    * @param {object} res - Response object.
    * @param {object} next - Next function.
    */
+  /*
   async getSensor (req, res, next) {
     try {
       const sensorName = req.params.name
@@ -63,6 +66,7 @@ export class SensorController {
       next(createError(404))
     }
   }
+  */
 
   /**
    * Creates sensor reports for an array of sensor objects.
@@ -71,6 +75,7 @@ export class SensorController {
    * @param {object} res - Response object.
    * @param {object} next - Next function.
    */
+  /*
   async updateSensors (req, res, next) {
     try {
       const sensors = req.body
@@ -91,4 +96,5 @@ export class SensorController {
       next(createError(500))
     }
   }
+  */
 }
