@@ -4,7 +4,7 @@
 
 import express from 'express'
 import createError from 'http-errors'
-// import { router as sensorRouter } from './sensorRouter.js'
+import { router as sensorRouter } from './sensorRouter.js'
 
 export const router = express.Router()
 
@@ -28,6 +28,6 @@ router.get('/', (req, res, next) => {
   }
 })
 
-// router.use('/sensors', sensorRouter)
+router.use('/sensors', sensorRouter)
 
 router.use('*', (req, res, next) => next(createError(404)))
