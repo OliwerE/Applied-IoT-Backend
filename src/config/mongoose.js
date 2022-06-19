@@ -29,8 +29,7 @@ export const connectMongoDB = async (app) => {
 
   // Connect to database
 
-  const connectionString = process.env.DB_CONNECTION_STRING || 'mongodb://localhost:27017/applied-iot-testing'
-  await mongoose.connect(connectionString, {
+  await mongoose.connect(process.env.DB_CONNECTION_STRING, {
     useNewUrlParser: true,
     useUnifiedTopology: true
   })
