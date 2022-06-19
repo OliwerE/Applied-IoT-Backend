@@ -4,7 +4,7 @@
 
 import express from 'express'
 import createError from 'http-errors'
-import { SensorController } from './sensorController.js'
+import { SensorController } from '../controllers/sensorController.js'
 
 export const router = express.Router()
 
