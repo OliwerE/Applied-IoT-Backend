@@ -8,7 +8,7 @@ import { SensorReport } from '../models/sensorReport.js'
 /**
  * Sensor controller class.
  */
-export class SensorControler {
+export class SensorController {
   /**
    * Returns name and current value of all sensors stored in DB.
    *
