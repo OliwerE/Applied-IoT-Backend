@@ -4,11 +4,11 @@
 
 import express from 'express'
 import createError from 'http-errors'
-// import { SensorControler } from '../controllers/SensorController.js'
+import { SensorControler } from '../controllers/SensorController.js'
 
 export const router = express.Router()
 
-// const sensorController = new SensorControler()
+const sensorController = new SensorControler()
 
 /**
  * Check if API key is valid.
