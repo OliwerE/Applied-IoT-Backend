@@ -32,6 +32,8 @@ const authorize = (req, res, next) => {
 router.get('/', (req, res, next) => sensorController.getAllSensors(req, res, next)) // Return all sensors and current value
 router.get('/sensor/:name', (req, res, next) => sensorController.getSensor(req, res, next)) // Return current value (and name) of a specific sensor
 
+router.get('/avg/day', (req, res, next) => sensorController.getAllSensorsDayAvgByHour(req, res, next))
+
 router.post('/', authorize, (req, res, next) => sensorController.updateSensors(req, res, next))
 
 router.use('*', (req, res, next) => next(createError(404)))
