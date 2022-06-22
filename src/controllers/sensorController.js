@@ -78,13 +78,9 @@ export class SensorController {
       const intervalStart = new Date()
       intervalStart.setUTCHours(intervalStart.getUTCHours(), 0, 0, 0)
 
-      const responseObj = {}
-
       const sensorNames = await SensorReport.find().distinct('sensorName')
 
-      for (let i = 0; i < sensorNames.length; i++) { // Add empty array for each sensor in response obj.
-        responseObj[sensorNames[i]] = []
-      }
+      const responseObj = this.#getSensorAvgResponseObj(sensorNames)
 
       for (let i = 0; i < 24; i++) {
         intervalStart.setHours(intervalStart.getHours() - 1) // skip current hour, beacuse not final value.
@@ -112,8 +108,22 @@ export class SensorController {
 
       res.json({ msg: 'Average values per hour from all sensors over the last 24 hours.', sensors: responseObj })
     } catch (err) {
-      console.log(err)
+      next(createError(500))
     }
+  }
+
+  /**
+   * Creates response object for average sensor values.
+   *
+   * @param {Array} sensorNames - Sensors in the response object.
+   * @returns {Array} - Response object.
+   */
+  #getSensorAvgResponseObj (sensorNames) {
+    const responseObj = {}
+    for (let i = 0; i < sensorNames.length; i++) { // Add empty array for each sensor in response obj.
+      responseObj[sensorNames[i]] = []
+    }
+    return responseObj
   }
 
   /**
@@ -144,6 +154,58 @@ export class SensorController {
       }
     ])
     return res
+  }
+
+  /**
+   * Returns all sensors average value per day over the requested amount of days.
+   *
+   * @param {object} req - Request object.
+   * @param {object} res - Response object.
+   * @param {object} next - Next function.
+   */
+  async getAllSensorsDayAvgByDay (req, res, next) {
+    try {
+      let days = req.query.days || 1
+
+      if (days > 30) {
+        days = 30
+      }
+
+      const intervalStart = new Date()
+      intervalStart.setUTCHours(0, 0, 0, 0)
+
+      const sensorNames = await SensorReport.find().distinct('sensorName')
+
+      const responseObj = this.#getSensorAvgResponseObj(sensorNames)
+
+      for (let i = 0; i < days; i++) {
+        intervalStart.setDate(intervalStart.getDate() - 1)
+
+        const intervalEnd = new Date(intervalStart)
+        intervalEnd.setUTCHours(23, 59, 59, 999)
+
+        for (let a = 0; a < sensorNames.length; a++) { // kod duplicering!!
+          const daysAgo = i + 1
+          const avg = await this.#getSensorAvgFromInterval(intervalStart, intervalEnd, sensorNames[a], daysAgo)
+
+          if (avg.length === 1) {
+            responseObj[sensorNames[a]].push({
+              daysAgo,
+              value: avg[0].value
+            })
+          } else {
+            responseObj[sensorNames[a]].push({
+              daysAgo,
+              value: null
+            })
+          }
+        }
+      }
+
+      res.json({ msg: `Average values per day from all sensors over the last ${days} day(s).`, sensors: responseObj })
+    } catch (err) {
+      next(createError(500))
+    }
   }
 
   /**
