@@ -18,7 +18,7 @@ export class SensorController {
    * @param {object} res - Response object.
    * @param {object} next - Next function.
    */
-  async getAllSensors (req, res, next) {
+  async getAllSensorsLatestValue (req, res, next) {
     try {
       const sensorNames = await SensorReport.find().distinct('sensorName')
 
@@ -48,7 +48,7 @@ export class SensorController {
    * @param {object} res - Response object.
    * @param {object} next - Next function.
    */
-  async getSensor (req, res, next) {
+  async getLatestSensorValue (req, res, next) {
     try {
       const sensorName = req.params.name
       const latestSensorValue = await SensorReport.findOne({ sensorName }).sort({ createdAt: -1 })
@@ -284,12 +284,12 @@ export class SensorController {
 
           if (avg.length === 1) {
             responseObj[sensorNames[a]].push({
-              daysAgo,
+              timeAgo: daysAgo,
               value: avg[0].value
             })
           } else {
             responseObj[sensorNames[a]].push({
-              daysAgo,
+              timeAgo: daysAgo,
               value: null
             })
           }
