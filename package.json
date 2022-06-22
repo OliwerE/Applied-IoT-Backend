@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/OliwerE/Applied-IoT-Backend#readme",
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
     "express": "^4.18.1",
     "helmet": "^5.1.0",

@@ -4,6 +4,8 @@
 
 import express from 'express'
 import createError from 'http-errors'
+import bcrypt from 'bcrypt'
+
 import { SensorController } from '../controllers/sensorController.js'
 
 export const router = express.Router()
@@ -17,9 +19,9 @@ const sensorController = new SensorController()
  * @param {object} res - Response object.
  * @param {object} next - Next function.
  */
-const authorize = (req, res, next) => {
+const authorize = async (req, res, next) => {
   try {
-    if (req.headers.authorization === process.env.API_KEY) {
+    if (await bcrypt.compare(req.headers.authorization, process.env.API_KEY)) {
       next()
     } else {
       next(createError(401))
