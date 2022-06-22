@@ -176,7 +176,6 @@ export class SensorController {
    */
   async getAllSensorsDayAvgByHour (req, res, next) {
     try {
-      console.log('test')
       const sensorNames = await SensorReport.find().distinct('sensorName')
       let responseObj = this.#getSensorAvgResponseObj(sensorNames)
 
